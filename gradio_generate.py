@@ -3,6 +3,7 @@ from diffusers import UniPCMultistepScheduler, AutoencoderKL
 from diffusers.pipelines import StableDiffusionPipeline
 import gradio as gr
 import argparse
+import devicetorch
 
 from garment_adapter.garment_diffusion import ClothAdapter
 from pipelines.OmsDiffusionPipeline import OmsDiffusionPipeline
@@ -14,7 +15,8 @@ parser.add_argument('--pipe_path', type=str, default="SG161222/Realistic_Vision_
 
 args = parser.parse_args()
 
-device = "cuda"
+#device = "cuda"
+device = devicetorch.get(torch)
 
 vae = AutoencoderKL.from_pretrained("stabilityai/sd-vae-ft-mse").to(dtype=torch.float16)
 if args.enable_cloth_guidance:

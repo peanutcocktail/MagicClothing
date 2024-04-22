@@ -7,6 +7,7 @@ from diffusers.pipelines import StableDiffusionPipeline
 import gradio as gr
 import argparse
 import cv2
+import devicetorch
 
 from pipelines.OmsDiffusionPipeline import OmsDiffusionPipeline
 
@@ -18,7 +19,8 @@ parser.add_argument('--faceid_version', type=str, default="FaceIDPlusV2", choice
 
 args = parser.parse_args()
 
-device = "cuda"
+#device = "cuda"
+device = devicetorch.get(torch)
 
 vae = AutoencoderKL.from_pretrained("stabilityai/sd-vae-ft-mse").to(dtype=torch.float16)
 if args.enable_cloth_guidance:

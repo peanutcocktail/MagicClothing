@@ -7,6 +7,7 @@ from diffusers.pipelines import StableDiffusionControlNetPipeline
 import gradio as gr
 import argparse
 import cv2
+import devicetorch
 
 from pipelines.OmsDiffusionControlNetPipeline import OmsDiffusionControlNetPipeline
 
@@ -18,7 +19,8 @@ parser.add_argument('--faceid_version', type=str, default="FaceIDPlus", choices=
 
 args = parser.parse_args()
 
-device = "cuda"
+#device = "cuda"
+device = devicetorch.get(torch)
 
 openpose_model = OpenposeDetector.from_pretrained("lllyasviel/ControlNet").to(device)
 control_net_openpose = ControlNetModel.from_pretrained("lllyasviel/control_v11p_sd15_openpose", torch_dtype=torch.float16)

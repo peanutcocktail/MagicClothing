@@ -5,6 +5,7 @@ from diffusers import UniPCMultistepScheduler, AutoencoderKL
 from diffusers.pipelines import StableDiffusionInpaintPipeline
 import gradio as gr
 import argparse
+import devicetorch
 
 from garment_adapter.garment_diffusion import ClothAdapter
 from pipelines.OmsDiffusionInpaintPipeline import OmsDiffusionInpaintPipeline
@@ -15,7 +16,8 @@ parser.add_argument('--pipe_path', type=str, default="runwayml/stable-diffusion-
 
 args = parser.parse_args()
 
-device = "cuda"
+#device = "cuda"
+device = devicetorch.get(torch)
 
 vae = AutoencoderKL.from_pretrained("stabilityai/sd-vae-ft-mse").to(dtype=torch.float16)
 pipe = OmsDiffusionInpaintPipeline.from_pretrained(args.pipe_path, vae=vae, torch_dtype=torch.float16)

@@ -6,6 +6,7 @@ from diffusers import UniPCMultistepScheduler, AutoencoderKL, DDIMScheduler, Mot
 from diffusers.pipelines import AnimateDiffPipeline
 from PIL import Image
 import argparse
+import devicetorch
 from diffusers.utils import export_to_gif
 from garment_adapter.garment_diffusion import ClothAdapter_AnimateDiff
 from pipelines.OmsAnimateDiffusionPipeline import OmsAnimateDiffusionPipeline
@@ -20,7 +21,8 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    device = "cuda"
+    #device = "cuda"
+    device = devicetorch.get(torch)
     output_path = args.output_path
     if not os.path.exists(output_path):
         os.makedirs(output_path)

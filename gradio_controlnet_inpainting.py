@@ -5,6 +5,7 @@ import gradio as gr
 import argparse
 from garment_adapter.garment_diffusion import ClothAdapter
 import numpy as np
+import devicetorch
 
 from pipelines.OmsDiffusionControlNetPipeline import OmsDiffusionControlNetPipeline
 
@@ -15,7 +16,8 @@ parser.add_argument('--pipe_path', type=str, default="SG161222/Realistic_Vision_
 
 args = parser.parse_args()
 
-device = "cuda"
+#device = "cuda"
+device = devicetorch.get(torch)
 
 control_net_openpose = ControlNetModel.from_pretrained("lllyasviel/control_v11p_sd15_inpaint", torch_dtype=torch.float16)
 vae = AutoencoderKL.from_pretrained("stabilityai/sd-vae-ft-mse").to(dtype=torch.float16)

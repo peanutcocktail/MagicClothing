@@ -68,7 +68,7 @@ class ClothAdapter:
         if cloth_mask_image is None:
             cloth_mask_image = generate_mask(cloth_image, net=self.seg_net, device=self.device)
 
-        if kwargs['mask_image'] is None:
+        if 'mask_image' not in kwargs:
             kwargs['mask_image'] = generate_mask(kwargs['image'], net=self.seg_net, device=self.device)
 
         cloth = prepare_image(cloth_image, height, width)
@@ -137,7 +137,7 @@ class ClothAdapter:
         if cloth_mask_image is None:
             cloth_mask_image = generate_mask(cloth_image, net=self.seg_net, device=self.device)
 
-        if kwargs['mask_image'] is None:
+        if 'mask_image' not in kwargs:
             kwargs['mask_image'] = generate_mask(kwargs['image'], net=self.seg_net, device=self.device)
 
         cloth = prepare_image(cloth_image, height, width)

@@ -54,7 +54,7 @@ with block:
             person_image = gr.Image(label="person Image", type="pil")
             #person_mask = gr.Image(label="person mask", type="pil")
             # person_image_mask = gr.ImageMask(label="person Image", type="pil")
-            person_image_mask = gr.ImageEditor(label="person Image", type="pil")
+            person_mask = gr.ImageEditor(label="person Image", type="pil")
         with gr.Column():
             result_gallery = gr.Gallery(label='Output', show_label=False, elem_id="gallery")
             cloth_seg_image = gr.Image(label="cloth mask", type="pil", width=192, height=256)

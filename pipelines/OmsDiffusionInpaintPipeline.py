@@ -184,22 +184,22 @@ class OmsDiffusionInpaintPipeline(StableDiffusionInpaintPipeline):
         width = width or self.unet.config.sample_size * self.vae_scale_factor
 
         # 1. Check inputs
-        self.check_inputs(
-            prompt,
-            image,
-            image,    # mask_image component not used
-            #mask_image,
-            height,
-            width,
-            strength,
-            callback_steps,
-            output_type,
-            negative_prompt,
-            prompt_embeds,
-            negative_prompt_embeds,
-            callback_on_step_end_tensor_inputs,
-            padding_mask_crop,
-        )
+#        self.check_inputs(
+#            prompt,
+#            image,
+#            image,    # mask_image component not used
+#            #mask_image,
+#            height,
+#            width,
+#            strength,
+#            callback_steps,
+#            output_type,
+#            negative_prompt,
+#            prompt_embeds,
+#            negative_prompt_embeds,
+#            callback_on_step_end_tensor_inputs,
+#            padding_mask_crop,
+#        )
 
         self._guidance_scale = 0.
         self.cloth_classifier_free_guidance = cloth_guidance_scale > 1.

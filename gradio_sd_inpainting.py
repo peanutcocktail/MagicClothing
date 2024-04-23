@@ -26,13 +26,13 @@ pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
 full_net = ClothAdapter(pipe, args.model_path, device, False)
 
 
+person_mask = None
 #def process(person_image, person_mask, cloth_image, cloth_mask_image, num_samples, width, height, sample_steps, cloth_guidance_scale, seed):
 def process(person_image, cloth_image, cloth_mask_image, num_samples, width, height, sample_steps, cloth_guidance_scale, seed):
     # person_image = person_image_mask['background'].convert("RGB")
     # person_mask = person_image_mask['layers'][0].split()[-1]
 
-    #images, cloth_mask_image = full_net.generate_inpainting(cloth_image, cloth_mask_image, num_samples, seed, cloth_guidance_scale, sample_steps, height, width, image=person_image, mask_image=person_mask)
-    images, cloth_mask_image = full_net.generate_inpainting(cloth_image, cloth_mask_image, num_samples, seed, cloth_guidance_scale, sample_steps, height, width, image=person_image)
+    images, cloth_mask_image = full_net.generate_inpainting(cloth_image, cloth_mask_image, num_samples, seed, cloth_guidance_scale, sample_steps, height, width, image=person_image, mask_image=person_mask)
     return images, cloth_mask_image
 
 
@@ -61,8 +61,7 @@ with block:
             result_gallery = gr.Gallery(label='Output', show_label=False, elem_id="gallery")
             cloth_seg_image = gr.Image(label="cloth mask", type="pil", width=192, height=256)
 
-    #ips = [person_image, person_mask, cloth_image, cloth_mask_image, num_samples, width, height, sample_steps, cloth_guidance_scale, seed]
-    ips = [person_image, cloth_image, cloth_mask_image, num_samples, width, height, sample_steps, cloth_guidance_scale, seed]
+    ips = [person_image, person_mask, cloth_image, cloth_mask_image, num_samples, width, height, sample_steps, cloth_guidance_scale, seed]
     run_button.click(fn=process, inputs=ips, outputs=[result_gallery, cloth_seg_image])
 
 block.launch(server_name="0.0.0.0", server_port=7860)

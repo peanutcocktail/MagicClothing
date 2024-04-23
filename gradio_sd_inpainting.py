@@ -31,8 +31,9 @@ def process(person_image, person_mask, cloth_image, cloth_mask_image, num_sample
 #def process(person_image, cloth_image, cloth_mask_image, num_samples, width, height, sample_steps, cloth_guidance_scale, seed):
     # person_image = person_image_mask['background'].convert("RGB")
     # person_mask = person_image_mask['layers'][0].split()[-1]
-    resolution = 512
-    cloth_image.thumbnail((resolution, resolution), Image.Resampling.LANCZOS)
+    #resolution = 512
+    #cloth_image.thumbnail((resolution, resolution), Image.Resampling.LANCZOS)
+
 
     images, cloth_mask_image = full_net.generate_inpainting(cloth_image, cloth_mask_image, num_samples, seed, cloth_guidance_scale, sample_steps, height, width, image=person_image, mask_image=person_mask)
     return images, cloth_mask_image
@@ -67,4 +68,4 @@ with block:
     #ips = [person_image, cloth_image, cloth_mask_image, num_samples, width, height, sample_steps, cloth_guidance_scale, seed]
     run_button.click(fn=process, inputs=ips, outputs=[result_gallery, cloth_seg_image])
 
-block.launch(server_name="0.0.0.0", server_port=7860)
+block.launch()

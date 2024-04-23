@@ -108,4 +108,4 @@ with block:
     run_button.click(fn=process, inputs=ips, outputs=[result_gallery, cloth_seg_image])
     pose_button.click(fn=get_pose, inputs=pose_image, outputs=pose_image)
 
-block.launch(server_name="0.0.0.0", server_port=7860)
+block.launch()

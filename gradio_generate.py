@@ -60,4 +60,4 @@ with block:
     ips = [cloth_image, cloth_mask_image, prompt, a_prompt, n_prompt, num_samples, width, height, sample_steps, guidance_scale, cloth_guidance_scale, seed]
     run_button.click(fn=process, inputs=ips, outputs=[result_gallery, cloth_seg_image])
 
-block.launch(server_name="0.0.0.0", server_port=7860)
+block.launch()

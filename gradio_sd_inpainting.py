@@ -31,7 +31,6 @@ def process(person_image, cloth_image, cloth_mask_image, num_samples, width, hei
     # person_image = person_image_mask['background'].convert("RGB")
     # person_mask = person_image_mask['layers'][0].split()[-1]
 
-    person_mask = None
     images, cloth_mask_image = full_net.generate_inpainting(cloth_image, cloth_mask_image, num_samples, seed, cloth_guidance_scale, sample_steps, height, width, image=person_image, mask_image=person_mask)
     return images, cloth_mask_image
 
@@ -54,15 +53,15 @@ with block:
                 seed = gr.Slider(label="Seed", minimum=-1, maximum=2147483647, step=1, value=1234)
         with gr.Column():
             person_image = gr.Image(label="person Image", type="pil")
-            #person_mask = gr.Image(label="person mask", type="pil")
+            person_mask = gr.Image(label="person mask", type="pil", visible=False)
             # person_image_mask = gr.ImageMask(label="person Image", type="pil")
             #person_mask = gr.ImageEditor(label="person Image", type="pil")
         with gr.Column():
             result_gallery = gr.Gallery(label='Output', show_label=False, elem_id="gallery")
             cloth_seg_image = gr.Image(label="cloth mask", type="pil", width=192, height=256)
 
-    #ips = [person_image, person_mask, cloth_image, cloth_mask_image, num_samples, width, height, sample_steps, cloth_guidance_scale, seed]
-    ips = [person_image, cloth_image, cloth_mask_image, num_samples, width, height, sample_steps, cloth_guidance_scale, seed]
+    ips = [person_image, person_mask, cloth_image, cloth_mask_image, num_samples, width, height, sample_steps, cloth_guidance_scale, seed]
+    #ips = [person_image, cloth_image, cloth_mask_image, num_samples, width, height, sample_steps, cloth_guidance_scale, seed]
     run_button.click(fn=process, inputs=ips, outputs=[result_gallery, cloth_seg_image])
 
 block.launch(server_name="0.0.0.0", server_port=7860)

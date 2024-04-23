@@ -6,6 +6,7 @@ import argparse
 from controlnet_aux import OpenposeDetector
 from garment_adapter.garment_diffusion import ClothAdapter
 from pipelines.OmsDiffusionControlNetPipeline import OmsDiffusionControlNetPipeline
+import devicetorch
 
 parser = argparse.ArgumentParser(description='oms diffusion')
 parser.add_argument('--model_path', type=str, required=True)
@@ -14,7 +15,8 @@ parser.add_argument('--pipe_path', type=str, default="SG161222/Realistic_Vision_
 
 args = parser.parse_args()
 
-device = "cuda"
+#device = "cuda"
+device = devicetorch.get(torch)
 
 openpose_model = OpenposeDetector.from_pretrained("lllyasviel/ControlNet").to(device)
 control_net_openpose = ControlNetModel.from_pretrained("lllyasviel/control_v11p_sd15_openpose", torch_dtype=torch.float16)

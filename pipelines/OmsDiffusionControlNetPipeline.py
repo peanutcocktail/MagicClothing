@@ -1,4 +1,5 @@
 import torch
+import devicetorch
 from diffusers.pipelines.controlnet.pipeline_controlnet import *
 
 
@@ -410,7 +411,8 @@ class OmsDiffusionControlNetPipeline(StableDiffusionControlNetPipeline):
         if hasattr(self, "final_offload_hook") and self.final_offload_hook is not None:
             self.unet.to("cpu")
             self.controlnet.to("cpu")
-            torch.cuda.empty_cache()
+            devicetorch.empty_cache(torch)
+            #torch.cuda.empty_cache()
 
         if not output_type == "latent":
             image = self.vae.decode(latents / self.vae.config.scaling_factor, return_dict=False, generator=generator)[

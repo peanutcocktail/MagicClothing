@@ -187,7 +187,8 @@ class OmsDiffusionInpaintPipeline(StableDiffusionInpaintPipeline):
         self.check_inputs(
             prompt,
             image,
-            mask_image,
+            image,    # mask_image component not used
+            #mask_image,
             height,
             width,
             strength,

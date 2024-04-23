@@ -6,6 +6,7 @@ from diffusers.pipelines import StableDiffusionInpaintPipeline
 import gradio as gr
 import argparse
 import devicetorch
+from PIL import Image
 
 from garment_adapter.garment_diffusion import ClothAdapter
 from pipelines.OmsDiffusionInpaintPipeline import OmsDiffusionInpaintPipeline
@@ -30,6 +31,8 @@ def process(person_image, person_mask, cloth_image, cloth_mask_image, num_sample
 #def process(person_image, cloth_image, cloth_mask_image, num_samples, width, height, sample_steps, cloth_guidance_scale, seed):
     # person_image = person_image_mask['background'].convert("RGB")
     # person_mask = person_image_mask['layers'][0].split()[-1]
+    resolution = 512
+    cloth_image.thumbnail((resolution, resolution), Image.Resampling.LANCZOS)
 
     images, cloth_mask_image = full_net.generate_inpainting(cloth_image, cloth_mask_image, num_samples, seed, cloth_guidance_scale, sample_steps, height, width, image=person_image, mask_image=person_mask)
     return images, cloth_mask_image

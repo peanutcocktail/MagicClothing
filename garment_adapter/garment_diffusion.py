@@ -134,14 +134,11 @@ class ClothAdapter:
             width=384,
             **kwargs,
     ):
-        print("SFDDDSDFSDFSDFSDFSDFSDFSDFSDF")
         if cloth_mask_image is None:
             cloth_mask_image = generate_mask(cloth_image, net=self.seg_net, device=self.device)
 
-        print(f"kwargs before = {kwargs}")
 #        if kwargs['mask_image'] is None:
         kwargs['mask_image'] = generate_mask(kwargs['image'], net=self.seg_net, device=self.device)
-        print(f"kwargs after = {kwargs}")
 
         cloth = prepare_image(cloth_image, height, width)
         cloth_mask = prepare_mask(cloth_mask_image, height, width)

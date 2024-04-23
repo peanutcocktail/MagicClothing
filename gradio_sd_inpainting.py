@@ -26,8 +26,8 @@ pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
 full_net = ClothAdapter(pipe, args.model_path, device, False)
 
 
-#def process(person_image, person_mask, cloth_image, cloth_mask_image, num_samples, width, height, sample_steps, cloth_guidance_scale, seed):
-def process(person_image, cloth_image, cloth_mask_image, num_samples, width, height, sample_steps, cloth_guidance_scale, seed):
+def process(person_image, person_mask, cloth_image, cloth_mask_image, num_samples, width, height, sample_steps, cloth_guidance_scale, seed):
+#def process(person_image, cloth_image, cloth_mask_image, num_samples, width, height, sample_steps, cloth_guidance_scale, seed):
     # person_image = person_image_mask['background'].convert("RGB")
     # person_mask = person_image_mask['layers'][0].split()[-1]
 
